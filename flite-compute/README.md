@@ -11,6 +11,10 @@ which takes in two WASI file descriptors: `in` used *only* for reading from, and
 *only* for writing to. `in` can point to any text file which we'd like to convert to speech
 using `flite` and save it as `wav` pointed to as `out` WASI file descriptor.
 
+For a more in-depth look at `wasi-compute` see the root of this [repo].
+
+[repo]: https://github.com/kubkon/wasi-compute
+
 ## Building
 
 In order to build this example, you need a WASI compatible `clang` compiler and an up-to-date
@@ -60,3 +64,8 @@ available in my tweaked version of `wasmtime`. Secondly, the syntax is `__wasi_f
 first argument points to the preopened WASI file descriptor which will point at the path encoded
 as the second argument. Ultimately, the two preopened file descriptors are the arguments that we
 pass in to the `compute` function.
+
+## Disclaimer
+
+This code is highly experimental in nature and should not be relied upon in any shape or form.
+The example purposely ignores and avoids any error handling so use at your own risk!
