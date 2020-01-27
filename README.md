@@ -16,10 +16,11 @@ TODO...
 Fully working examples demonstrating the viability of the proposed approach can
 be found in this repo, and are as follows:
 
-* [hello-compute] - demonstrates a minimal "Hello World!"-style function
+* [hello-compute] - demonstrates a minimal "Hello World!"-style function which reads
+                    from the input WASI file descriptor, makes whatever it read upper-case,
+                    and writes the result to the output WASI file descriptor
 * [test-compute] - verifies that *only* reading from/writing to a specified, preopened
-                   WASI file descriptor are possible, and that syscalls such as
-                   `random_get`, etc., are purposely filtered out at the runtime level
+                   WASI file descriptor are possible
 * [flite-compute] - demonstrates that it is already possible to fit a full-fledged
                     library into this model by taking a text-to-speech [flite] engine
                     and performing simple TTS on the input WASI file descriptor and
@@ -29,6 +30,20 @@ be found in this repo, and are as follows:
 [test-compute]: test-compute
 [flite-compute]: flite-compute
 [flite]: https://festvox.org/flite/index.html
+
+**NOTE:** all of the examples contained within this repo require a tweaked version
+of the [`wasmtime`] runtime which can be found in my fork [kubkon/wasmtime/tree/preopen_fd]. Therefore, in order to run the examples, you'll need to clone the repo
+and build it using the latest version of Rust:
+
+```
+git clone https://github.com/kubkon/wasmtime
+cd wasmtime
+git checkout preopen_fd
+cargo build --release
+```
+
+[`wasmtime`]: https://wasmtime.dev
+[kubkon/wasmtime/tree/preopen_fd]: https://github.com/kubkon/wasmtime/tree/preopen_fd
 
 ## Disclaimer
 
