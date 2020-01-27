@@ -1,0 +1,14 @@
+[package]
+name = "flite-compute"
+version = "0.1.0"
+authors = ["Jakub Konka <jakub.konka@golem.network>"]
+edition = "2018"
+build = "build.rs"
+
+[lib]
+crate-type = ['cdylib']
+
+[dependencies]
+wasi = "0.9"
+anyhow = "1"
+libc = "0.2"

@@ -1,5 +1,6 @@
 [workspace]
 members = [
   "hello-compute",
-  "test-compute"
+  "test-compute",
+  "flite-compute"
 ]
