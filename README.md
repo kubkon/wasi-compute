@@ -35,13 +35,35 @@ void compute(__wasi_fd_t in, __wasi_fd_t out);
 
 ### Building the examples using `cargo-wasi`
 
-TODO...
+In order to build the examples contained within this repo, you'll need two things:
+
+* latest version of Rust nightly (I strongly recommend using [rustup] to manage your Rust
+  installation) -- stable and beta channels are fine as well however, at the time of writing,
+  they do not guarantee you'll be using the latest WASI ABI snapshot, aka [`snapshot1`]
+* `cargo-wasi` plugin to `cargo`
+
+[rustup]: https://rustup.rs
+[`snapshot1`]: https://github.com/WebAssembly/WASI/blob/master/phases/snapshot/docs.md
+
+The steps are thus as follows:
+
+```
+rustup toolchain add nightly
+cargo install cargo-wasi
+cargo +nightly wasi build --release
+```
+
+When executed from the root of this repo, these 3 steps will build all examples targetting
+the `wasm32-wasi` target in release mode. Note that you don't have to install the target
+yourself using `rustup` as `cargo-wasi` will do it for you when you build the project for
+the first time.
 
 ### Running the examples using `wasmtime`
 
 All of the examples contained within this repo require a tweaked version
-of the [`wasmtime`] runtime which can be found in my fork [kubkon/wasmtime/tree/preopen_fd]. Therefore, in order to run the examples, you'll need to clone the repo
-and build it using the latest version of Rust:
+of the [`wasmtime`] runtime which can be found in my fork [kubkon/wasmtime/tree/preopen_fd].
+Therefore, in order to run the examples, you'll need to clone the repo and build it using the
+latest version of Rust:
 
 ```
 git clone https://github.com/kubkon/wasmtime
@@ -53,7 +75,8 @@ cargo build --release
 [`wasmtime`]: https://wasmtime.dev
 [kubkon/wasmtime/tree/preopen_fd]: https://github.com/kubkon/wasmtime/tree/preopen_fd
 
-The tweaked version of the runtime adds two optional arguments to `wasmtime` which are required in order to map a WASI file descriptor to the preopened resource on the host.
+The tweaked version of the runtime adds two optional arguments to `wasmtime` which are
+required in order to map a WASI file descriptor to the preopened resource on the host.
 There are:
 
 * `--preopen_read=GUEST_FD:PATH_TO_PREOPEN` which will preopen and map a resource
