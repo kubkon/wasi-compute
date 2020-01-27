@@ -25,7 +25,7 @@ In order to build this example, you need:
 The steps required to build this example are then as follows:
 
 ```
-cd flite-compute
+cd test-compute
 cargo +nightly wasi build --release
 ```
 
