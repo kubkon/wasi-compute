@@ -14,10 +14,10 @@ of discussions found in [WebAssembly/WASI/issues/190] thread.
 The model is pretty simple in its assumptions in that
 
 ### Examples of "compute" function in different languages
-* Wasm:
+* Wat:
 
-```wasm
-(func (export "compute") (param u32) (param u32))
+```wat
+(func (export "compute") (param $in u32) (param $out u32))
 ```
 
 * Rust:
@@ -33,7 +33,11 @@ pub extern "C" fn compute(r#in: wasi::Fd, out: wasi::Fd);
 void compute(__wasi_fd_t in, __wasi_fd_t out);
 ```
 
-### Running the examples using Wasmtime
+### Building the examples using `cargo-wasi`
+
+TODO...
+
+### Running the examples using `wasmtime`
 
 All of the examples contained within this repo require a tweaked version
 of the [`wasmtime`] runtime which can be found in my fork [kubkon/wasmtime/tree/preopen_fd]. Therefore, in order to run the examples, you'll need to clone the repo
