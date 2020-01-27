@@ -9,7 +9,7 @@ of discussions found in [WebAssembly/WASI/issues/190] thread.
 
 ## The model
 
-TODO...
+![The model](/images/the_model.png)
 
 ## Examples
 
@@ -17,14 +17,16 @@ Fully working examples demonstrating the viability of the proposed approach can
 be found in this repo, and are as follows:
 
 * [hello-compute] - demonstrates a minimal "Hello World!"-style function which reads
-                    from the input WASI file descriptor, makes whatever it read upper-case,
-                    and writes the result to the output WASI file descriptor
+    from the input WASI file descriptor, makes whatever it read upper-case,
+    and writes the result to the output WASI file descriptor
+
 * [test-compute] - verifies that *only* reading from/writing to a specified, preopened
-                   WASI file descriptor are possible
+    WASI file descriptor are possible
+
 * [flite-compute] - demonstrates that it is already possible to fit a full-fledged
-                    library into this model by taking a text-to-speech [flite] engine
-                    and performing simple TTS on the input WASI file descriptor and
-                    saving the result to the output WASI file descriptor
+    library into this model by taking a text-to-speech [flite] engine
+    and performing simple TTS on the input WASI file descriptor and
+    saving the result to the output WASI file descriptor
 
 [hello-compute]: hello-compute
 [test-compute]: test-compute

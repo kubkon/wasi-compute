@@ -21,8 +21,11 @@ In order to build this example, you need a WASI compatible `clang` compiler and 
 version of [`wasi-libc`], aka the sysroot. Then, you can build the example as follows:
 
 ```
-clang --sysroot=/path/to/wasi/sysroot/ --target=wasm32-wasi -Iinclude -Llib -lflite_cmu_us_kal -lflite_usenglish -lflite_cmulex -lflite -DDIE_O
-N_ERROR -DCST_NO_SOCKETS -DWASM32_WASI -nostartfiles -Wl,--no-entry,--export=compute -o compute.wasm compute.c
+clang --sysroot=/path/to/wasi/sysroot/ --target=wasm32-wasi \
+        -Iinclude -Llib -lflite_cmu_us_kal -lflite_usenglish \
+        -lflite_cmulex -lflite -DDIE_ON_ERROR -DCST_NO_SOCKETS \
+        -DWASM32_WASI -nostartfiles -Wl,--no-entry,--export=compute \
+        -o compute.wasm compute.c
 ```
 
 Note that for your convenience I've already precompiled parts of `flite` required by this example
