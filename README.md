@@ -21,7 +21,8 @@ of discussions found in [WebAssembly/WASI/issues/190] thread.
 * Rust:
 
 ```rust
-fn compute(r#in: wasi::Fd, out: wasi::Fd);
+#[no_mangle]
+pub extern "C" fn compute(r#in: wasi::Fd, out: wasi::Fd);
 ```
 
 * C/C++:
