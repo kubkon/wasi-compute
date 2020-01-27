@@ -11,6 +11,25 @@ of discussions found in [WebAssembly/WASI/issues/190] thread.
 
 ![The model](/images/the_model.png)
 
+### Examples of "compute" function in different languages
+* Wasm:
+
+```wasm
+(func (export "compute") (param u32) (param u32))
+```
+
+* Rust:
+
+```rust
+fn compute(r#in: wasi::Fd, out: wasi::Fd);
+```
+
+* C/C++:
+
+```c
+void compute(__wasi_fd_t in, __wasi_fd_t out);
+```
+
 ## Examples
 
 Fully working examples demonstrating the viability of the proposed approach can
