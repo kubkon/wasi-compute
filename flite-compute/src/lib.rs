@@ -26,6 +26,15 @@ extern "C" {
     fn flite_text_to_wave(text: *const libc::c_char, voice: *const CstVoice) -> *mut CstWave;
 }
 
+fn read_text(fd: wasi::Fd, buf: &mut [u8]) -> Result<()> {
+    let iovs = wasi::Iovec {
+        buf: buf.as_mut_ptr(),
+        buf_len: buf.len(),
+    };
+    let _nread = unsafe { wasi::fd_read(fd, &[iovs])? };
+    Ok(())
+}
+
 fn write_wave(fd: wasi::Fd, wave: NonNull<CstWave>) -> Result<()> {
     let sample_rate: u32 = unsafe { wave.as_ref().sample_rate.try_into()? };
     let num_samples: u32 = unsafe { wave.as_ref().num_samples.try_into()? };
@@ -76,12 +85,7 @@ fn write_wave(fd: wasi::Fd, wave: NonNull<CstWave>) -> Result<()> {
 pub extern "C" fn compute(r#in: wasi::Fd, out: wasi::Fd) -> Result<()> {
     let mut buf = vec![0u8; 1000];
 
-    // Read in from the input Fd
-    let iovs = wasi::Iovec {
-        buf: buf.as_mut_ptr(),
-        buf_len: buf.len(),
-    };
-    let _nread = unsafe { wasi::fd_read(r#in, &[iovs])? };
+    read_text(r#in, &mut buf)?;
 
     let mut output = MaybeUninit::<NonNull<CstWave>>::uninit();
     unsafe {
@@ -92,5 +96,6 @@ pub extern "C" fn compute(r#in: wasi::Fd, out: wasi::Fd) -> Result<()> {
         output.as_mut_ptr().write(res);
     }
     let output = unsafe { output.assume_init() };
+
     write_wave(out, output)
 }
