@@ -38,7 +38,8 @@ writing, that would be `snapshot1`.
 And that's it!
 
 Note that for your convenience I've already precompiled parts of `flite` required by this example
-and put them inside `lib/` dir.
+and put them inside `lib/` dir. This example might seem somewhat nontrivial and convoluted from
+the Rust perspective since we're using a lot of C FFI in order to hook with the `flite` library.
 
 ## Running
 

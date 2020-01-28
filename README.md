@@ -11,7 +11,37 @@ of discussions found in [WebAssembly/WASI/issues/190] thread.
 
 ![The model](/images/the_model.png)
 
-The model is pretty simple in its assumptions in that
+The model is pretty simple in its assumptions. The "compute" function takes in two
+arguments: an input WASI file descriptor, `in`, and an output WASI file descriptor,
+`out`. Thanks to the capabilities-based security model of WASI, we are able to enforce
+`in` to only have [`rights::fd_read`] rights attached to it, and `out` to only have
+[`rights::fd_write`] rights. This is handled at the preopening stage of the resources
+in the runtime proper (in this case, the modified version of `wasmtime`;
+see [Running the examples using `wasmtime`] section).
+
+Constraining the descriptors to reading from or writing to immediately shields us 
+from any nondeterminism that might arise from utilising any syscalls operating on
+raw file descriptors or paths in WASI. In fact, the only permitted syscalls are
+
+* [`fd_read`]
+* [`fd_write`]
+* [`fd_close`]
+
+Of course, other syscalls not requiring file descriptors as arguments such as
+[`random_get`] or [`clock_time_get`] can still be invoked in this model; however,
+with the upcoming WASI snapshot (see [ephemeral] stage in WASI repo), these syscalls
+will get their own WASI modules, and hence they will require a capability to be
+available at run time. Here, in order to emulate this, I've gone ahead and filtered
+out those offending syscalls manually in my tweaked version of `wasmtime` (see
+[Running the examples using `wasmtime`]).
+
+[`fd_read`]: https://github.com/WebAssembly/WASI/blob/master/phases/snapshot/docs.md#fd_read
+[`fd_write`]: https://github.com/WebAssembly/WASI/blob/master/phases/snapshot/docs.md#fd_write
+[`fd_close`]: https://github.com/WebAssembly/WASI/blob/master/phases/snapshot/docs.md#fd_close
+[`random_get`]: https://github.com/WebAssembly/WASI/blob/master/phases/snapshot/docs.md#random_get
+[`clock_time_get`]: https://github.com/WebAssembly/WASI/blob/master/phases/snapshot/docs.md#clock_time_get
+[ephemeral]: https://github.com/WebAssembly/WASI/blob/master/phases/ephemeral/docs.md
+[Running the examples using `wasmtime`]: #running-the-examples-using-wasmtime
 
 ### Examples of "compute" function in different languages
 * Wat:
