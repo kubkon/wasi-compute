@@ -2,7 +2,9 @@
 
 `wasi-compute` explores the minimal viable model for fully deterministic
 computations/functions in [WASI]. The explored model is a direct result
-of discussions found in [WebAssembly/WASI/issues/190] thread.
+of discussions found in [WebAssembly/WASI/issues/190] thread. Kudos to
+everyone who contributed and to @sunfishcode in particular for his infinite
+wisdom!
 
 [WASI]: https://wasi.dev
 [WebAssembly/WASI/issues/190]: https://github.com/WebAssembly/WASI/issues/190
