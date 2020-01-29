@@ -2,12 +2,15 @@
 
 `wasi-compute` explores the minimal viable model for fully deterministic
 computations/functions in [WASI]. The explored model is a direct result
-of discussions found in [WebAssembly/WASI/issues/190] thread. Kudos to
-everyone who contributed and to @sunfishcode in particular for his infinite
-wisdom!
+of discussions found in [WebAssembly/WASI/issues/190] thread.
+
+This repo was partly done in preparation for [my talk] about determinism in WASI in
+distributed settings at FOSDEM2020. Kudos to everyone who contributed and to
+@sunfishcode in particular for his infinite wisdom!
 
 [WASI]: https://wasi.dev
 [WebAssembly/WASI/issues/190]: https://github.com/WebAssembly/WASI/issues/190
+[my talk]: https://fosdem.org/2020/schedule/event/facilitating_distributed_deterministic_computation_with_wasi/
 
 ## The model
 
